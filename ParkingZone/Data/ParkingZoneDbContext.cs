@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ParkingZone.Models;
 
 namespace ParkingZone.Data;
 
@@ -18,4 +19,6 @@ public class ParkingZoneDbContext : IdentityDbContext
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+public DbSet<PparkingZone> ParkingZones { get; set; } = default!;
 }

@@ -38,6 +38,10 @@ namespace ParkingZone
             app.UseRouting();
 
             app.UseAuthorization();
+           
+            app.MapControllerRoute(
+               name: "Admin",
+               pattern: "{area:exists}/{controller=ParkingZones}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",
