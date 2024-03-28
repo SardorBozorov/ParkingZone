@@ -20,5 +20,5 @@ public class ParkingZoneDbContext : IdentityDbContext
         // Add your customizations after calling base.OnModelCreating(builder);
     }
 
-public DbSet<PparkingZone> ParkingZones { get; set; } = default!;
+public DbSet<Models.ParkingZone> ParkingZones { get; set; } = default!;
 }

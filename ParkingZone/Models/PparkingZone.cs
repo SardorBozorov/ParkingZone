@@ -1,6 +1,6 @@
 ﻿namespace ParkingZone.Models;
 
-public class PparkingZone
+public class ParkingZone
 {
     public long Id { get; set; }
     public string Name { get; set; }

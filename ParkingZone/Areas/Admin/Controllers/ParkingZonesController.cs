@@ -7,7 +7,6 @@ using ParkingZone.Models;
 namespace ParkingZone.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
     public class ParkingZonesController : Controller
     {
         private readonly ParkingZoneDbContext _context;
@@ -52,7 +51,7 @@ namespace ParkingZone.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Country,City,Region,Street")] PparkingZone parkingZone)
+        public async Task<IActionResult> Create([Bind("Id,Name,Country,City,Region,Street")] Models.ParkingZone parkingZone)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +83,7 @@ namespace ParkingZone.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Country,City,Region,Street")] PparkingZone parkingZone)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Country,City,Region,Street")] Models.ParkingZone parkingZone)
         {
             if (id != parkingZone.Id)
             {
