@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\ParkingZone.Data\ParkingZone.Data.csproj" />
   </ItemGroup>
 
 </Project>
