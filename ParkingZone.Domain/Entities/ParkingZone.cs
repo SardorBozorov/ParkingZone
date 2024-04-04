@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ParkingZone.Domain.Entities;
 
-public class ParkingZoneModel : Auditable
+public class ParkingZone : Auditable
 {
     public string Name { get; set; }
      public string Country { get; set; }

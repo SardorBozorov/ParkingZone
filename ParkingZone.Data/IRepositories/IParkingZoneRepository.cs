@@ -2,6 +2,6 @@
 
 namespace ParkingZone.Data.IRepositories;
 
-public  interface IParkingZoneModelRepository : IGenericRepository<ParkingZoneModel>
+public  interface IParkingZoneRepository : IRepository<Domain.Entities.ParkingZone>
 {
 }

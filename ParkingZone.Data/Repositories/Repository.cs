@@ -6,11 +6,11 @@ using System.Linq.Expressions;
 
 namespace ParkingZone.Data.Repositories;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : Auditable
+public class Repository<T> : IRepository<T> where T : Auditable
 {
     private readonly AppDbContext _dbContext;
     private readonly DbSet<T> _dbSet;
-    public GenericRepository(AppDbContext dbContext)
+    public Repository(AppDbContext dbContext)
     {
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<T>();

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace ParkingZone.Data.IRepositories;
 
-public interface  IGenericRepository<T> where T : Auditable
+public interface  IRepository<T> where T : Auditable
 {
     T Create (T entity);
     T Update (T entity);

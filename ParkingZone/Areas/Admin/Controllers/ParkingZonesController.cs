@@ -21,7 +21,7 @@ namespace ParkingZone.Areas.Admin.Controllers
         // GET: Admin/ParkingZones
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ParkingZoneModels.ToListAsync());
+            return View(await _context.ParkingZones.ToListAsync());
         }
 
         // GET: Admin/ParkingZones/Details/5
@@ -32,7 +32,7 @@ namespace ParkingZone.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var parkingZone = await _context.ParkingZoneModels
+            var parkingZone = await _context.ParkingZones
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (parkingZone == null)
             {
@@ -53,7 +53,7 @@ namespace ParkingZone.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Country,City,Region,Street")] ParkingZoneModel parkingZone)
+        public async Task<IActionResult> Create([Bind("Id,Name,Country,City,Region,Street")] Domain.Entities.ParkingZone parkingZone)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,7 @@ namespace ParkingZone.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var parkingZone = await _context.ParkingZoneModels.FindAsync(id);
+            var parkingZone = await _context.ParkingZones.FindAsync(id);
             if (parkingZone == null)
             {
                 return NotFound();
@@ -85,7 +85,7 @@ namespace ParkingZone.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Country,City,Region,Street,PostalCode,CreatedAt")] Domain.Entities.ParkingZoneModel parkingZone)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Country,City,Region,Street,PostalCode,CreatedAt")] Domain.Entities.ParkingZone parkingZone)
         {
             if (id != parkingZone.Id)
             {
@@ -123,7 +123,7 @@ namespace ParkingZone.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var parkingZone = await _context.ParkingZoneModels
+            var parkingZone = await _context.ParkingZones
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (parkingZone == null)
             {
@@ -138,10 +138,10 @@ namespace ParkingZone.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var parkingZone = await _context.ParkingZoneModels.FindAsync(id);
+            var parkingZone = await _context.ParkingZones.FindAsync(id);
             if (parkingZone != null)
             {
-                _context.ParkingZoneModels.Remove(parkingZone);
+                _context.ParkingZones.Remove(parkingZone);
             }
 
             await _context.SaveChangesAsync();
@@ -150,7 +150,7 @@ namespace ParkingZone.Areas.Admin.Controllers
 
         private bool ParkingZoneExists(long id)
         {
-            return _context.ParkingZoneModels.Any(e => e.Id == id);
+            return _context.ParkingZones.Any(e => e.Id == id);
         }
     }
 }

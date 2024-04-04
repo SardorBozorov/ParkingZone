@@ -8,7 +8,7 @@ namespace ParkingZone.Data.DbCondext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<ParkingZoneModel> ParkingZoneModels { get; set; }
+        public DbSet<Domain.Entities.ParkingZone> ParkingZones { get; set; }
     }
 }
 
