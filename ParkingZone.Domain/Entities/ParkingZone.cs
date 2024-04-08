@@ -1,12 +1,19 @@
-﻿using Parking_Zone.Domain.Commons;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Parking_Zone.Domain.Entities;
 
-public class ParkingZone : Auditable
+public class ParkingZone
 {
+    [Key]
+    [Required]
+    public long Id { get; set; }
+
+    [Required]
     public string Name { get; set; }
-    public string Country { get; set; }
-    public string City { get; set; }
-    public string Region { get; set; }
-    public string Street { get; set; }
+
+    [Required]
+    public string Address { get; set; }
+
+    [Required]
+    public DateTime DateOfEstablishment { get; set; } = DateTime.UtcNow;
 }

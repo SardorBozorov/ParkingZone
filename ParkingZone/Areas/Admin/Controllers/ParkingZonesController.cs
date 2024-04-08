@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Parking_Zone.Data.DbCondext;
 using Parking_Zone.Data.IRepositories;
+using Parking_Zone.Domain.Entities;
 
 namespace Parking_Zone.MVC.Areas.Admin.Controllers
 {
@@ -29,7 +29,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var parkingZone =  _repository.Delete(m => m.Id == id);
+            var parkingZone = _repository.GetById(id);
             if (parkingZone == null)
             {
                 return NotFound();
@@ -49,7 +49,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,Country,City,Region,Street")] Domain.Entities.ParkingZone parkingZone)
+        public IActionResult Create(ParkingZone parkingZone)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var parkingZone = _repository.Get(p => p.Id == id);
+            var parkingZone = _repository.GetById(id);
             if (parkingZone == null)
             {
                 return NotFound();
@@ -80,7 +80,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(long id, [Bind("Id,Name,Country,City,Region,Street,PostalCode,CreatedAt")] Domain.Entities.ParkingZone parkingZone)
+        public IActionResult Edit(long id,ParkingZone parkingZone)
         {
             if (id != parkingZone.Id)
             {
@@ -117,7 +117,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var parkingZone = _repository.Get(p => p.Id == id);
+            var parkingZone = _repository.GetById(id);
             if (parkingZone == null)
             {
                 return NotFound();
@@ -131,10 +131,10 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var parkingZone =  _repository.Get(p => p.Id == id);
+            var parkingZone = _repository.GetById(id);
             if (parkingZone != null)
             {
-                _repository.Delete(p => p.Id == id);
+                _repository.Delete(parkingZone);
             }
 
             return RedirectToAction(nameof(Index));
@@ -142,7 +142,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
 
         private bool ParkingZoneExists(long id)
         {
-            var ParkingZone = _repository.Get(p => p.Id == id);
+            var ParkingZone = _repository.GetById(id);
             return true ? ParkingZone != null : false;
         }
     }

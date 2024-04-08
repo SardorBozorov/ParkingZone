@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Parking_Zone.Data.DbCondext;
 using Parking_Zone.Data.IRepositories;
-using Parking_Zone.Domain.Commons;
 using System.Linq.Expressions;
 
 namespace Parking_Zone.Data.Repositories;
@@ -21,33 +20,20 @@ public class Repository<T> : IRepository<T> where T : class
         _dbContext.SaveChanges();
     }
 
-    public bool Delete(Expression<Func<T, bool>> expression)
+    public void Delete(T entity)
     {
-        // Find entities that match the deletion condition.
-        var entitiesToDelete =  _dbSet.FirstOrDefault(expression);
-
-        // If there are entities to delete, remove them from the DbSet.
-        if (entitiesToDelete != null)
-        {
-            _dbSet.RemoveRange(entitiesToDelete);
-
-            // Save changes to the database.
-            _dbContext.SaveChangesAsync();
-        }
-
-        return true;
+        _dbSet.Remove(entity);
+        _dbContext.SaveChanges();
     }
 
-    public T Get(Expression<Func<T, bool>> expression)
+    public T GetById(long? id)
     {
-        var result = _dbSet.FirstOrDefault(expression);
-        return result;
+        return _dbSet.Find(id);
     }
 
-    public IQueryable<T> GetAll(Expression<Func<T, bool>> expression = null)
+    public IEnumerable<T> GetAll()
     {
-        var query = expression is null ? _dbSet : _dbSet.Where(expression);
-        return query;
+        return _dbSet;
     }
 
     public void Update(T entity)
