@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Parking_Zone.Data.DbCondext;
 using Parking_Zone.Data.IRepositories;
-using System.Linq.Expressions;
 
 namespace Parking_Zone.Data.Repositories;
 
@@ -39,7 +38,6 @@ public class Repository<T> : IRepository<T> where T : class
     public void Update(T entity)
     {
         _dbContext.Update(entity);
-
         _dbContext.SaveChanges();
     }
 }

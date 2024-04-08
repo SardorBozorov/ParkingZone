@@ -10,7 +10,6 @@ public static class ServiceExtentions
     public static void AddCustomServices(this IServiceCollection services)
     {
         // Repository
-        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IParkingZoneRepository, ParkingZoneRepository>();
     }
 }

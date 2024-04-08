@@ -18,7 +18,8 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
         // GET: Admin/ParkingZones
         public IActionResult Index()
         {
-            return View(_repository.GetAll().ToList());
+            var result = _repository.GetAll().ToList();
+            return View(result);
         }
 
         // GET: Admin/ParkingZones/Details/5
@@ -129,7 +130,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
         // POST: Admin/ParkingZones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public  IActionResult DeleteConfirmed(long id)
         {
             var parkingZone = _repository.GetById(id);
             if (parkingZone != null)
