@@ -1,7 +1,7 @@
-﻿using ParkingZone.Domain.Entities;
+﻿using Parking_Zone.Domain.Entities;
 
-namespace ParkingZone.Data.IRepositories;
+namespace Parking_Zone.Data.IRepositories;
 
-public  interface IParkingZoneRepository : IRepository<Domain.Entities.ParkingZone>
+public  interface IParkingZoneRepository : IRepository<ParkingZone>
 {
 }

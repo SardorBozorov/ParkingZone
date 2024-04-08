@@ -1,5 +1,4 @@
-﻿namespace ParkingZone.Domain.Commons;
-
+﻿namespace Parking_Zone.Domain.Commons;
 public class Auditable
 {
     public long Id { get; set; }

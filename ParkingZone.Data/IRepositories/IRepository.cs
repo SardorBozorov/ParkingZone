@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using ParkingZone.Domain.Commons;
+using Parking_Zone.Domain.Commons;
 using System.Linq.Expressions;
 
-namespace ParkingZone.Data.IRepositories;
+namespace Parking_Zone.Data.IRepositories;
 
-public interface  IRepository<T> where T : Auditable
+public interface  IRepository<T> where T : class
 {
-    T Create (T entity);
-    T Update (T entity);
+    void Create (T entity);
+    void Update (T entity);
     bool Delete (Expression<Func<T, bool>> expression);
     T Get(Expression<Func<T, bool>> expression);
     IQueryable<T> GetAll(Expression<Func<T,bool>>? expression = null);

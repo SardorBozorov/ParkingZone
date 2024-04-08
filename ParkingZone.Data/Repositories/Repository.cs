@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ParkingZone.Data.DbCondext;
-using ParkingZone.Data.IRepositories;
-using ParkingZone.Domain.Commons;
+using Parking_Zone.Data.DbCondext;
+using Parking_Zone.Data.IRepositories;
+using Parking_Zone.Domain.Commons;
 using System.Linq.Expressions;
 
-namespace ParkingZone.Data.Repositories;
+namespace Parking_Zone.Data.Repositories;
 
-public class Repository<T> : IRepository<T> where T : Auditable
+public class Repository<T> : IRepository<T> where T : class
 {
     private readonly AppDbContext _dbContext;
     private readonly DbSet<T> _dbSet;
@@ -15,11 +15,10 @@ public class Repository<T> : IRepository<T> where T : Auditable
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<T>();
     }
-    public T Create(T entity)
+    public void Create(T entity)
     {
-        var result = _dbSet.Add(entity);
+        _dbSet.Add(entity);
         _dbContext.SaveChanges();
-        return result.Entity;
     }
 
     public bool Delete(Expression<Func<T, bool>> expression)
@@ -45,18 +44,16 @@ public class Repository<T> : IRepository<T> where T : Auditable
         return result;
     }
 
-    public IQueryable<T> GetAll(Expression<Func<T, bool>>? expression = null)
+    public IQueryable<T> GetAll(Expression<Func<T, bool>> expression = null)
     {
         var query = expression is null ? _dbSet : _dbSet.Where(expression);
         return query;
     }
 
-    public T Update(T entity)
+    public void Update(T entity)
     {
-        var entry = _dbContext.Update(entity);
+        _dbContext.Update(entity);
 
         _dbContext.SaveChanges();
-
-        return entry.Entity;
     }
 }

@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ParkingZone.Data;
-using ParkingZone.Data.DbCondext;
-namespace ParkingZone
+using Parking_Zone.Data;
+using Parking_Zone.Data.DbCondext;
+using Parking_Zone.MVC.Extensions;
+namespace Parking_Zone.MVC
 {
     public class Program
     {
@@ -10,9 +11,12 @@ namespace ParkingZone
         {
             var builder = WebApplication.CreateBuilder(args);
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
-                throw new InvalidOperationException("Connection string 'ParkingZoneDbContextConnection' not found.");
+                throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+
+            // Add service dependencies
+            builder.Services.AddCustomServices();
             
 
 

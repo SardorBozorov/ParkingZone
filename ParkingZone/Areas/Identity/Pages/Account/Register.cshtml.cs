@@ -12,7 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 
-namespace ParkingZone.Areas.Identity.Pages.Account
+namespace Parking_Zone.MVC.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {

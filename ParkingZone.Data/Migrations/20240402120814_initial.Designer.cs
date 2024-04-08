@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ParkingZone.Data.DbCondext;
+using Parking_Zone.Data.DbCondext;
 
 #nullable disable
 
-namespace ParkingZone.Data.Migrations
+namespace Parking_Zone.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20240402120814_initial")]

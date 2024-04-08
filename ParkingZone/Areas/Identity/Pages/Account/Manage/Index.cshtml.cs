@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 
-namespace ParkingZone.Areas.Identity.Pages.Account.Manage
+namespace Parking_Zone.MVC.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {

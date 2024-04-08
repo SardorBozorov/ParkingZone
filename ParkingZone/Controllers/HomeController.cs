@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using ParkingZone.Models;
+using Parking_Zone.MVC.Models;
 using System.Diagnostics;
 
-namespace ParkingZone.Controllers
+namespace Parking_Zone.MVC.Controllers
 {
     public class HomeController : Controller
     {

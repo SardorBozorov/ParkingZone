@@ -1,10 +1,10 @@
-﻿using ParkingZone.Data.DbCondext;
-using ParkingZone.Data.IRepositories;
-using ParkingZone.Domain.Entities;
+﻿using Parking_Zone.Data.DbCondext;
+using Parking_Zone.Data.IRepositories;
+using Parking_Zone.Domain.Entities;
 
-namespace ParkingZone.Data.Repositories;
+namespace Parking_Zone.Data.Repositories;
 
-public class ParkingZoneRepository : Repository<Domain.Entities.ParkingZone> , IParkingZoneRepository
+public class ParkingZoneRepository : Repository<ParkingZone> , IParkingZoneRepository
 {
     public ParkingZoneRepository(AppDbContext options) : base(options)
     { }
