@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ParkingZone.Data;
+using Parking_Zone.Data.DbCondext;
 
 #nullable disable
 
-namespace ParkingZone.Migrations
+namespace Parking_Zone.Data.Migrations
 {
-    [DbContext(typeof(ParkingZoneDbContext))]
-    [Migration("20240327170157_ParkingZoneCRUD")]
-    partial class ParkingZoneCRUD
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20240408102111_Resolvation")]
+    partial class Resolvation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,7 +227,7 @@ namespace ParkingZone.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ParkingZone.Models.PparkingZone", b =>
+            modelBuilder.Entity("Parking_Zone.Domain.Entities.ParkingZone", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -235,23 +235,14 @@ namespace ParkingZone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("City")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("DateOfEstablishment")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Region")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Street")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

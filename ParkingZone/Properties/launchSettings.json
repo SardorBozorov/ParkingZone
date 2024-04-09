@@ -1,6 +1,16 @@
 {
   "profiles": {
-    "ParkingZone": {
+    "WSL": {
+      "commandName": "WSL2",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:57189",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:57189;http://localhost:57190"
+      },
+      "distributionName": ""
+    },
+    "Parking-Zone": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

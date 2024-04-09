@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ParkingZone.Areas.Identity.Pages.Account
+namespace Parking_Zone.MVC.Areas.Identity.Pages.Account
 {
     public class LogoutModel : PageModel
     {
