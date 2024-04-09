@@ -130,14 +130,14 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
         // POST: Admin/ParkingZones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public  IActionResult DeleteConfirmed(long id)
+        public IActionResult DeleteConfirmed(long id)
         {
             var parkingZone = _repository.GetById(id);
-            if (parkingZone != null)
+            if (parkingZone == null)
             {
-                _repository.Delete(parkingZone);
+                return NotFound();
             }
-
+            _repository.Delete(parkingZone);
             return RedirectToAction(nameof(Index));
         }
 
