@@ -2,23 +2,24 @@
 using Microsoft.EntityFrameworkCore;
 using Parking_Zone.Data.IRepositories;
 using Parking_Zone.Domain.Entities;
+using Parking_Zone.Service.Interfaces;
 
 namespace Parking_Zone.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ParkingZonesController : Controller
     {
-        private readonly IParkingZoneRepository _repository;
+        private readonly IParkingZoneService _service;
 
-        public ParkingZonesController(IParkingZoneRepository repository)
+        public ParkingZonesController(IParkingZoneService service)
         {
-            _repository = repository;
+            _service = service;
         }
 
         // GET: Admin/ParkingZones
         public IActionResult Index()
         {
-            var result = _repository.GetAll().ToList();
+            var result = _service.GetAll().ToList();
             return View(result);
         }
 
@@ -30,7 +31,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var parkingZone = _repository.GetById(id);
+            var parkingZone = _service.GetById(id);
             if (parkingZone == null)
             {
                 return NotFound();
@@ -54,7 +55,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _repository.Create(parkingZone);
+                _service.Create(parkingZone);
                 return RedirectToAction(nameof(Index));
             }
             return View(parkingZone);
@@ -68,7 +69,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var parkingZone = _repository.GetById(id);
+            var parkingZone = _service.GetById(id);
             if (parkingZone == null)
             {
                 return NotFound();
@@ -92,7 +93,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
             {
                 try
                 {
-                    _repository.Update(parkingZone);
+                    _service.Update(parkingZone);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,7 +119,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var parkingZone = _repository.GetById(id);
+            var parkingZone = _service.GetById(id);
             if (parkingZone == null)
             {
                 return NotFound();
@@ -132,18 +133,18 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(long id)
         {
-            var parkingZone = _repository.GetById(id);
+            var parkingZone = _service.GetById(id);
             if (parkingZone == null)
             {
                 return NotFound();
             }
-            _repository.Delete(parkingZone);
+            _service.Delete(parkingZone);
             return RedirectToAction(nameof(Index));
         }
 
         private bool ParkingZoneExists(long id)
         {
-            var ParkingZone = _repository.GetById(id);
+            var ParkingZone = _service.GetById(id);
             return true ? ParkingZone != null : false;
         }
     }
