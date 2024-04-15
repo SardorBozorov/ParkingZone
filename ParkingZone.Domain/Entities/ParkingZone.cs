@@ -13,7 +13,5 @@ public class ParkingZone
 
     [Required]
     public string Address { get; set; }
-
-    [Required]
     public DateTime DateOfEstablishment { get; set; } = DateTime.UtcNow;
 }
