@@ -86,7 +86,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(long id,EditVM parkingZoneVM)
+        public IActionResult Edit(long id, EditVM parkingZoneVM)
         {
             var parkingZone = _service.GetById(id);
             if (id != parkingZone.Id)
@@ -98,7 +98,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
             {
                 try
                 {
-                    _service.Update(parkingZoneVM.MappingToModel(parkingZone));
+                    _service.Update(parkingZoneVM.MapToModel(parkingZone));
                 }
                 catch (DbUpdateConcurrencyException)
                 {

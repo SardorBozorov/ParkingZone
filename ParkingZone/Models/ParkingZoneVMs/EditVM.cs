@@ -16,7 +16,7 @@ public class EditVM
         Name = parkingZone.Name;
         Address = parkingZone.Address;
     }
-    public ParkingZone MappingToModel(ParkingZone Vm)
+    public ParkingZone MapToModel(ParkingZone Vm)
     {
         Vm.Id = Id;
         Vm.Name = Name;
