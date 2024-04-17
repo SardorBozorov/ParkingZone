@@ -14,10 +14,10 @@ namespace Parking_Zone.MVC.Models.ParkingZoneVMs
         { }
         public DetailsVM(ParkingZone parkingZone)
         {
-            parkingZone.Id = Id;
-            parkingZone.Name = Name;
-            parkingZone.Address = Address;
-            parkingZone.DateOfEstablishment = DateOfEstablishment;
+            Id = parkingZone.Id;
+            Name = parkingZone.Name;
+            Address = parkingZone.Address;
+            DateOfEstablishment = parkingZone.DateOfEstablishment;
         }
     }
 }
