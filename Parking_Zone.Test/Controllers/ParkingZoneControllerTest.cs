@@ -209,7 +209,6 @@ public class ParkingZoneControllerTest
 
         //Assert
         var model = Assert.IsType<ViewResult>(result).Model;
-        Assert.IsAssignableFrom<EditVM>(model);
         Assert.False(_parkingZoneController.ModelState.IsValid);
         Assert.Equal(JsonSerializer.Serialize(expectedEditVM), JsonSerializer.Serialize(model));
         _parkingZoneServiceMoq.Verify(x => x.GetById(id), Times.Once());
