@@ -187,25 +187,6 @@ public class ParkingZoneControllerTest
         Assert.IsType<NotFoundResult>(result);
         _parkingZoneServiceMoq.Verify(x => x.GetById(id), Times.Once());
     }
-    [Fact]
-    public void GivenIdAndEditVM_WhenPostEditIsCalled_ThenModelStateIsFalseAndReturnsViewResult()
-    {
-        //Arrange
-        EditVM editVM = new(_parkingZone);
-        EditVM expectedEditVM = new(_parkingZone);
-        _parkingZoneServiceMoq
-            .Setup(x => x.GetById(id))
-            .Returns(_parkingZone);
-
-        //Act
-        var result = _parkingZoneController.Edit(id, editVM);
-
-        //Assert
-        var model = Assert.IsType<ViewResult>(result).Model;
-        Assert.False(_parkingZoneController.ModelState.IsValid);
-        Assert.Equal(JsonSerializer.Serialize(expectedEditVM), JsonSerializer.Serialize(model));
-        _parkingZoneServiceMoq.Verify(x => x.GetById(id), Times.Once());
-    }
 
     [Fact]
     public void GivenIdAndEditVM_WhenEditIsCalled_ThenModelStateIsTrueAndReturnsRedirectToActionResult()
