@@ -102,7 +102,7 @@ namespace Parking_Zone.MVC.Areas.Admin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ParkingZoneExists(parkingZoneVM.Id))
+                    if (!ParkingZoneExists(id))
                     {
                         return NotFound();
                     }
