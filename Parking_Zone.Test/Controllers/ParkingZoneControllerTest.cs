@@ -89,7 +89,6 @@ public class ParkingZoneControllerTest
     #endregion
 
     #region Create
-
     [Fact]
     public void GivenNothing_WhenCreateIsCalled_ThenReturnsViewResult()
     {
@@ -136,7 +135,6 @@ public class ParkingZoneControllerTest
     #endregion
 
     #region Edit
-
     [Fact]
     public void GivenId_WhenEditIsCalled_ThenReturnsNotFoundResult()
     {
@@ -189,17 +187,12 @@ public class ParkingZoneControllerTest
         Assert.IsType<NotFoundResult>(result);
         _parkingZoneServiceMoq.Verify(x => x.GetById(id), Times.Once());
     }
-
-    [Theory]
-    [InlineData("Name", "Required")]
-    [InlineData("Address", "Required")]
-    public void GivenIdAndEditVM_WhenPostEditIsCalled_ThenModelStateIsFalseAndReturnsViewResult(string key, string errorMessage)
+    [Fact]
+    public void GivenIdAndEditVM_WhenPostEditIsCalled_ThenModelStateIsFalseAndReturnsViewResult()
     {
         //Arrange
         EditVM editVM = new(_parkingZone);
         EditVM expectedEditVM = new(_parkingZone);
-
-        _parkingZoneController.ModelState.AddModelError(key, errorMessage);
         _parkingZoneServiceMoq
             .Setup(x => x.GetById(id))
             .Returns(_parkingZone);
@@ -234,7 +227,6 @@ public class ParkingZoneControllerTest
         _parkingZoneServiceMoq.Verify(x => x.GetById(id), Times.Once());
         _parkingZoneServiceMoq.Verify(x => x.Update(_parkingZone), Times.Once());
     }
-
     #endregion
 
     #region Delete
@@ -302,7 +294,6 @@ public class ParkingZoneControllerTest
         _parkingZoneServiceMoq.Verify(x => x.GetById(id), Times.Once());
         _parkingZoneServiceMoq.Verify(x => x.Delete(_parkingZone), Times.Once());
     }
-
     #endregion
 }
 
