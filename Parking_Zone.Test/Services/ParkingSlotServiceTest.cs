@@ -25,7 +25,7 @@ public class ParkingSlotServiceTest
         _parkingSlot = new()
         {
             Id = id,
-            Number = "10",
+            Number = 10,
             Category = ParkingSlotCategory.Start,
             IsAvailable = false,
             ParkingZoneId = id

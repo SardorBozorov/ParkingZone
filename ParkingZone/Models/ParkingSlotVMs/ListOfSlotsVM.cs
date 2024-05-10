@@ -9,7 +9,7 @@ public class ListOfSlotsVM
     [Required]
     public long Id { get; set; }
     [Required]
-    public string Number { get; set; }
+    public uint Number { get; set; }
     [Required]
     public bool IsAvailable { get; set; }
     [Required]

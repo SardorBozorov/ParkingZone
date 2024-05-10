@@ -35,15 +35,15 @@ public class ParkingSlotControllerTest
             new ()
             {
                 Id = 1,
-                Number = "2",
+                Number = 2,
                 IsAvailable = false,
                 ParkingZoneId = 1,
                 Category = 0,
             },
             new ()
             {
-                Id = 2,
-                Number = "3",
+                Id = _id,
+                Number = 3,
                 IsAvailable = true,
                 ParkingZoneId = 1,
                 Category = ParkingSlotCategory.Business
@@ -59,8 +59,9 @@ public class ParkingSlotControllerTest
         var expectedVMs = new List<ListOfSlotsVM>();
         expectedVMs.AddRange(ListOfSlotsVM.MapToVM(_parkingSlot));
 
-        _parkingSlotServiceMoq.Setup(x => x.GetSlotsByZoneId(_id)).Returns(_parkingSlot);
-        _parkingZoneServiceMoq.Setup(x => x.GetById(_id)).Returns(_parkingZone);
+        _parkingSlotServiceMoq
+            .Setup(x => x.GetSlotsByZoneId(_id))
+            .Returns(_parkingSlot);
 
         //Act
         var result = _parkingSlotController.Index(_id);

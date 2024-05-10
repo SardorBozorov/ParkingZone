@@ -10,14 +10,13 @@ public class ListOfSlotsVMTest
     public static IEnumerable<object[]> TestData =>
       new List<object[]>
       {
-                new object[] { 1, null, new ParkingSlotCategory(), false, 10, false },
-                new object[] { 3, "30", new ParkingSlotCategory(), false, 20, true },
+                new object[] { 3, 5, new ParkingSlotCategory(), false, 20, true },
       };
 
     [Theory]
     [MemberData(nameof(TestData))]
     public void GivenItemToBeValidated_WhenCreatingListItemVM_ThenValidationIsPerformed
-        (long id, string number, ParkingSlotCategory category, bool isAvailable, long parkingZoneId, bool expectedValidation)
+        (long id, uint number, ParkingSlotCategory category, bool isAvailable, long parkingZoneId, bool expectedValidation)
     {
         //Arrange
         ListOfSlotsVM listItemVM = new ListOfSlotsVM()
