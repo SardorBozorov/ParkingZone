@@ -13,8 +13,10 @@ public static class ServiceExtentions
     {
         // Repository
         services.AddScoped<IParkingZoneRepository, ParkingZoneRepository>();
+        services.AddScoped<IParkingSlotRepository, ParkingSlotRepository>();
 
         // Service
         services.AddScoped<IParkingZoneService, ParkingZoneService>();
+        services.AddScoped<IParkingSlotService, ParkingSlotService>();
     }
 }

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parking_Zone.Data", "Parkin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parking_Zone.Service", "Parking_Zone.Service\Parking_Zone.Service.csproj", "{8B177417-E77B-4996-BA5D-83E0765C292B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parking_Zone.Test", "Parking_Zone.Test\Parking_Zone.Test.csproj", "{BE6E2BD2-4BED-4C40-A6D9-48E5B3ED97F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parking_Zone.Test", "Parking_Zone.Test\Parking_Zone.Test.csproj", "{BE6E2BD2-4BED-4C40-A6D9-48E5B3ED97F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
