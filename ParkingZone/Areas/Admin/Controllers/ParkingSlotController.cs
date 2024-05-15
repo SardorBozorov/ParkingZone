@@ -20,15 +20,10 @@ public class ParkingSlotController : Controller
 
     public IActionResult Index(long zoneId)
     {
-        //var parkingSlots = _parkingSlotService.GetAll();
-        //var listItemsVMs = ListOfSlotsVM.MapToVM(parkingSlots);
-
-        //ViewData["parkingZoneId"] = parkingZoneId;
-        //return View(listItemsVMs);
         var parkingSlots = _parkingSlotService.GetSlotsByZoneId(zoneId);
         var listItemVMs = ListOfSlotsVM.MapToVM(parkingSlots).ToList();
         var zone = _parkingZoneService.GetById(zoneId);
-        ViewData["parkingZoneId"] = zone.Id;
+        ViewData["parkingZoneId"] = zoneId;
         ViewData["name"] = zone.Name;
         return View(listItemVMs);
     }
@@ -49,7 +44,7 @@ public class ParkingSlotController : Controller
         if (ModelState.IsValid)
         {
             _parkingSlotService.Create(createVM.MapToModel());
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new {zoneId = createVM.ParkingZoneId});
         }
         return View(createVM);
     }

@@ -23,7 +23,7 @@ public class ParkingSlotControllerTest
     {
         _parkingSlotServiceMoq = new Mock<IParkingSlotService>();
         _parkingZoneServiceMoq = new Mock<IParkingZoneService>();
-        _parkingSlotController = new ParkingSlotController(_parkingSlotServiceMoq.Object);
+        _parkingSlotController = new ParkingSlotController(_parkingSlotServiceMoq.Object, _parkingZoneServiceMoq.Object);
         _parkingZone = new() 
         {
             Id = _id,
@@ -62,6 +62,9 @@ public class ParkingSlotControllerTest
         _parkingSlotServiceMoq
             .Setup(x => x.GetSlotsByZoneId(_id))
             .Returns(_parkingSlot);
+        _parkingZoneServiceMoq
+            .Setup(x => x.GetById(_id))
+            .Returns(_parkingZone);
 
         //Act
         var result = _parkingSlotController.Index(_id);
@@ -74,6 +77,50 @@ public class ParkingSlotControllerTest
         Assert.NotNull(result);
         Assert.NotNull(model);
         _parkingSlotServiceMoq.Verify(_parkingSlot => _parkingSlot.GetSlotsByZoneId(_id), Times.Once);
+        _parkingZoneServiceMoq.Verify(_parkingZone => _parkingZone.GetById(_id), Times.Once);
+    }
+    #endregion
+
+    #region
+    [Fact]
+    public void GivenParkingZoneId_WhenCreateGetIsCalled_ThenReturnViewResult()
+    {
+        //Arrange
+        CreateVM expectedCreateVM = new()
+        {
+            ParkingZoneId = _parkingZone.Id,
+        };
+
+        //Act
+        var result = _parkingSlotController.Create(expectedCreateVM.ParkingZoneId);
+
+        //Assert
+        Assert.NotNull(result);
+        Assert.Equal(JsonSerializer.Serialize(expectedCreateVM.ParkingZoneId), JsonSerializer.Serialize(_parkingZone.Id));
+    }
+
+    [Fact]
+    public void GivenCreateVM_WhenCreatePostIsCalled_ThenModelStateIsTrueAndReturnsRedirectToIndex()
+    {
+        //Arrange
+        CreateVM expectedCreateVM = new()
+        {
+            Number = _parkingSlot[0].Number,
+            Category = _parkingSlot[0].Category,
+            IsAvailable = _parkingSlot[0].IsAvailable,
+            ParkingZoneId = _parkingSlot[0].ParkingZoneId,
+        };
+
+        _parkingSlotServiceMoq
+                .Setup(x => x.Create(_parkingSlot[0]));
+
+        //Act
+        var result = _parkingSlotController.Create(expectedCreateVM);
+
+        //Assert
+        Assert.NotNull(result);
+        Assert.True(_parkingSlotController.ModelState.IsValid);
+        _parkingSlotServiceMoq.Verify(x => x.Create(It.IsAny<ParkingSlot>()), Times.Once);
     }
     #endregion
 }
