@@ -10,7 +10,7 @@ public class ListOfSlotsVMTest
     public static IEnumerable<object[]> TestData =>
       new List<object[]>
       {
-                new object[] { 3, 5, new ParkingSlotCategory(), false, 20, true },
+                new object[] { 3, 5, ParkingSlotCategory.Business, false, 20, true },
       };
 
     [Theory]

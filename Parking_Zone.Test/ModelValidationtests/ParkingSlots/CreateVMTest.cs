@@ -10,7 +10,7 @@ public class CreateVMTest
     public static IEnumerable<object[]> TestData =>
       new List<object[]>
       {
-                new object[] { 5, new ParkingSlotCategory(), false, 20, true },
+                new object[] { 5, ParkingSlotCategory.VIP, false, 20, true },
       };
 
     [Theory]
