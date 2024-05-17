@@ -15,8 +15,7 @@ public class EditVM
     [Required]
     public long ParkingZoneId { get; set; }
     public long Id { get; set; }
-    public EditVM()
-    { }
+    public EditVM() {}
     public EditVM(ParkingSlot parkingSlot)
     {
         Number = parkingSlot.Number;
@@ -25,13 +24,13 @@ public class EditVM
         ParkingZoneId = parkingSlot.ParkingZoneId;
         Id = parkingSlot.Id;
     }
-    public ParkingSlot MapToModel(ParkingSlot Vm)
+    public ParkingSlot MapToModel(ParkingSlot slot)
     {
-        Vm.Number = Number;
-        Vm.Category = Category;
-        Vm.IsAvailable = IsAvailable;
-        Vm.ParkingZoneId = ParkingZoneId;
-        Vm.Id = Id;
-        return Vm;
+        slot.Number = Number;
+        slot.Category = Category;
+        slot.IsAvailable = IsAvailable;
+        slot.ParkingZoneId = ParkingZoneId;
+        slot.Id = Id;
+        return slot;
     }
 }

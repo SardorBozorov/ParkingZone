@@ -66,9 +66,11 @@ public class ParkingSlotController : Controller
 
         if (slot is null)
             return NotFound();
+
         var editVM = new EditVM(slot);
         return View(editVM);
     }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Edit(EditVM editVM, long id)

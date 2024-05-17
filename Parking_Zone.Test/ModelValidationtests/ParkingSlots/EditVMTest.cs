@@ -21,7 +21,6 @@ public class EditVMTest
         //Arrange
         EditVM listItemVM = new EditVM()
         {
-
             Number = number,
             Category = category,
             IsAvailable = isAvailable,
