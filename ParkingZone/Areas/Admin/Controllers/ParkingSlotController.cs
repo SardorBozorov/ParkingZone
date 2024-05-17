@@ -30,17 +30,27 @@ public class ParkingSlotController : Controller
 
     public IActionResult Create(long parkingZoneId)
     {
-        CreateVM createVM = new()
+        var existParkingZone = _parkingZoneService.GetById(parkingZoneId);
+        if (existParkingZone != null)
         {
-            ParkingZoneId = parkingZoneId,
-        };
-        return View(createVM);
+            ViewData["name"] = existParkingZone.Name;
+            CreateVM createVM = new()
+            {
+                ParkingZoneId = parkingZoneId,
+            };
+            return View(createVM);
+        }
+        return NotFound();
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Create(CreateVM createVM)
     {
+        if (_parkingSlotService.IsUniqueNumber(createVM.ParkingZoneId, createVM.Number))
+        {
+            ModelState.AddModelError("Number", "Slot number already exists in this zone");
+        }
         if (ModelState.IsValid)
         {
             _parkingSlotService.Create(createVM.MapToModel());

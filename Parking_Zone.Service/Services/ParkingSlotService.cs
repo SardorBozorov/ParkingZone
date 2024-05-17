@@ -16,5 +16,10 @@ public class ParkingSlotService : Service<ParkingSlot>, IParkingSlotService
     {
         return _parkingSlotRepository.GetAll().Where(x => x.ParkingZoneId == parkingZoneId).ToList();
     }
+    public bool IsUniqueNumber(long zoneId, uint Number)
+    {
+        var existSlots = GetSlotsByZoneId(zoneId).Any(s => s.Number == Number);
+        return existSlots;
+    }
 
 }

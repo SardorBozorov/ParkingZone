@@ -5,4 +5,5 @@ namespace Parking_Zone.Service.Interfaces;
 public interface IParkingSlotService : IService<ParkingSlot>
 {
     public IEnumerable<ParkingSlot> GetSlotsByZoneId(long parkingZoneId);
+    public bool IsUniqueNumber(long zoneId, uint Number);
 }
