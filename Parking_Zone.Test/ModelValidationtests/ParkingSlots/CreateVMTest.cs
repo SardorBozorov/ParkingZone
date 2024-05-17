@@ -5,23 +5,22 @@ using Xunit;
 
 namespace Parking_Zone.Test.ModelValidationtests.ParkingSlots;
 
-public class ListOfSlotsVMTest
+public class CreateVMTest
 {
     public static IEnumerable<object[]> TestData =>
       new List<object[]>
       {
-                new object[] { 3, 5, ParkingSlotCategory.Business, false, 20, true },
+                new object[] { 5, ParkingSlotCategory.VIP, false, 20, true },
       };
 
     [Theory]
     [MemberData(nameof(TestData))]
-    public void GivenItemToBeValidated_WhenCreatingListItemVM_ThenValidationIsPerformed
-        (long id, uint number, ParkingSlotCategory category, bool isAvailable, long parkingZoneId, bool expectedValidation)
+    public void GivenItemToBeValidated_WhenCreateNewSlot_ThenValidationIsPerformed
+        ( uint number, ParkingSlotCategory category, bool isAvailable, long parkingZoneId, bool expectedValidation)
     {
         //Arrange
-        ListOfSlotsVM listItemVM = new ListOfSlotsVM()
-        {
-            Id = id,
+        CreateVM listItemVM = new CreateVM()
+        { 
             Number = number,
             Category = category,
             IsAvailable = isAvailable,
