@@ -126,8 +126,8 @@ public class ParkingSlotControllerTest
 
      #region Edit
         [Fact]
-        public void GivenParkingSlotId_WhenEditGetIsCalled_ThenReturnViewResult()
-        {
+        public void GivenParkingSlotId_WhenEditIsCalled_ThenReturnsViewResult()
+    {
             //Arrange
             EditVM expectedEditVM = new(_parkingSlot[0]);
             _parkingSlotServiceMoq.Setup(x => x.GetById(_parkingSlot[0].Id)).Returns(_parkingSlot[0]);
@@ -143,7 +143,7 @@ public class ParkingSlotControllerTest
         }
 
         [Fact]
-        public void GivenParkingSlotId_WhenEditGetIsCalled_ThenReturnNotFound()
+        public void GivenParkingSlotId_WhenEditGetIsCalled_ThenReturnsNotFound()
         {
             //Arrange
             _parkingSlotServiceMoq.Setup(x => x.GetById(_parkingSlot[0].Id));
@@ -158,8 +158,8 @@ public class ParkingSlotControllerTest
         }
 
         [Fact]
-        public void GivenEditVMAndParkingSlotId_WhenEditPostIsCalled_ThenReturnNotFoundIfIdAndSlotIdDoesNotMatch()
-        {
+        public void GivenEditVMAndParkingSlotId_WhenEditPostIsCalled_ThenIdAndSlotIdDoNotMatchAndReturnsNotFound()
+        { 
             //Arrange
             EditVM editVM = new(_parkingSlot[0]);
 
@@ -172,7 +172,7 @@ public class ParkingSlotControllerTest
         }
 
         [Fact]
-        public void GivenEditVMAndParkingSlotId_WhenEditPostIsCalled_ThenReturnNotFoundIfSlotIsNull()
+        public void GivenEditVMAndParkingSlotId_WhenEditPostIsCalled_ThenReturnsNotFoundIfSlotIsNull()
         {
              //Arrange
              EditVM editVM = new(_parkingSlot[0]);
