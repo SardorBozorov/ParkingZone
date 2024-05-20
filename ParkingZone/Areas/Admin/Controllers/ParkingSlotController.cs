@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Parking_Zone.Domain.Entities;
 using Parking_Zone.MVC.Models.ParkingSlotVMs;
 using Parking_Zone.Service.Interfaces;
+using Parking_Zone.Service.Services;
 using System.Security.Policy;
 
 namespace Parking_Zone.MVC.Areas.Admin.Controllers;
@@ -110,5 +111,35 @@ public class ParkingSlotController : Controller
         }
         DetailsVM detailsVM = new(existSlot);
         return View(detailsVM);
+    }
+
+    [HttpGet]
+    public IActionResult Delete(long? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var parkingSlot = _parkingSlotService.GetById(id);
+        if (parkingSlot == null)
+        {
+            return NotFound();
+        }
+
+        return View(parkingSlot);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteConfirmed(long id)
+    {
+        var existSlot = _parkingSlotService.GetById(id);
+        if (existSlot == null)
+        {
+            return NotFound();
+        }
+        _parkingSlotService.Delete(existSlot);
+        return RedirectToAction("Index", new { zoneId = existSlot.ParkingZoneId });
     }
 }
