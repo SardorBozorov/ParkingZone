@@ -116,11 +116,6 @@ public class ParkingSlotController : Controller
     [HttpGet]
     public IActionResult Delete(long? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var parkingSlot = _parkingSlotService.GetById(id);
         if (parkingSlot == null)
         {
