@@ -58,4 +58,41 @@ public class ParkingSlotController : Controller
         }
         return View(createVM);
     }
+
+    [HttpGet]
+    public IActionResult Edit(long id)
+    {
+        var slot = _parkingSlotService.GetById(id);
+
+        if (slot is null)
+            return NotFound();
+
+        var editVM = new EditVM(slot);
+        return View(editVM);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(EditVM editVM, long id)
+    {
+        if (id != editVM.Id)
+            return NotFound();
+        var slot = _parkingSlotService.GetById(id);
+
+        if (slot is null)
+            return NotFound();
+
+        if (_parkingSlotService.IsUniqueNumber(editVM.ParkingZoneId, editVM.Number) && slot.Number != editVM.Number)
+        {
+            ModelState.AddModelError("Number", "The parking slot number is not unique");
+        }
+
+        if (ModelState.IsValid)
+        {
+            slot = editVM.MapToModel(slot);
+            _parkingSlotService.Update(slot);
+            return RedirectToAction("Index", new { zoneId = slot.ParkingZoneId });
+        }
+        return View(editVM);
+    }
 }

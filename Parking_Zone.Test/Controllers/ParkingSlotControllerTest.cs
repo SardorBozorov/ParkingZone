@@ -123,4 +123,124 @@ public class ParkingSlotControllerTest
         _parkingSlotServiceMoq.Verify(x => x.Create(It.IsAny<ParkingSlot>()), Times.Once);
     }
     #endregion
+
+     #region Edit
+        [Fact]
+        public void GivenParkingSlotId_WhenEditIsCalled_ThenReturnsViewResult()
+    {
+            //Arrange
+            EditVM expectedEditVM = new(_parkingSlot[0]);
+            _parkingSlotServiceMoq.Setup(x => x.GetById(_parkingSlot[0].Id)).Returns(_parkingSlot[0]);
+
+            //Act
+            var result = _parkingSlotController.Edit(_parkingSlot[0].Id);
+
+            //Assert
+            var model = Assert.IsType<ViewResult>(result).Model;
+            Assert.NotNull(result);
+            Assert.Equal(JsonSerializer.Serialize(model), JsonSerializer.Serialize(expectedEditVM));
+            _parkingSlotServiceMoq.Verify(x => x.GetById(_parkingSlot[0].Id), Times.Once);
+        }
+
+        [Fact]
+        public void GivenParkingSlotId_WhenEditGetIsCalled_ThenReturnsNotFound()
+        {
+            //Arrange
+            _parkingSlotServiceMoq.Setup(x => x.GetById(_parkingSlot[0].Id));
+
+            //Act
+            var result = _parkingSlotController.Edit(_parkingSlot[0].Id);
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.IsType<NotFoundResult>(result);
+            _parkingSlotServiceMoq.Verify(x => x.GetById(_parkingSlot[0].Id), Times.Once);
+        }
+
+        [Fact]
+        public void GivenEditVMAndParkingSlotId_WhenEditPostIsCalled_ThenIdAndSlotIdDoNotMatchAndReturnsNotFound()
+        { 
+            //Arrange
+            EditVM editVM = new(_parkingSlot[0]);
+
+            //Act
+            var result = _parkingSlotController.Edit(editVM, _parkingSlot[0].Id);
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public void GivenEditVMAndParkingSlotId_WhenEditPostIsCalled_ThenReturnsNotFoundIfSlotIsNull()
+        {
+             //Arrange
+             EditVM editVM = new(_parkingSlot[0]);
+            _parkingSlotServiceMoq.Setup(x => x.GetById(editVM.Id));
+
+            //Act
+            var result = _parkingSlotController.Edit(editVM, editVM.Id);
+
+            //Assert
+            Assert.IsType<NotFoundResult>(result);
+            _parkingSlotServiceMoq.Verify(x => x.GetById(editVM.Id), Times.Once);
+        }
+
+        [Fact]
+        public void GivenEditVMAndParkingSlotId_WhenEditPostIsCalled_ThenReturnModelError()
+        {
+            //Arrange
+            EditVM editVM = new(_parkingSlot[0]);
+            _parkingSlotController.ModelState.AddModelError("Number", "Number is not valid");
+            _parkingSlotServiceMoq
+                    .Setup(x => x.GetById(_parkingSlot[0].Id))
+                    .Returns(_parkingSlot[0]);
+            _parkingSlotServiceMoq
+                    .Setup(x => x.IsUniqueNumber(editVM.ParkingZoneId, editVM.Number))
+                    .Returns(false);
+
+            //Act
+            var result = _parkingSlotController.Edit(editVM, _parkingSlot[0].Id);
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.False(_parkingSlotController.ModelState.IsValid);
+            _parkingSlotServiceMoq.Verify(x => x.GetById(_parkingSlot[0].Id), Times.Once);
+            _parkingSlotServiceMoq
+                    .Verify(x => x.IsUniqueNumber(editVM.ParkingZoneId, editVM.Number), Times.Once);
+        }
+
+        [Fact]
+        public void GivenEditVMAndParkingSlotId_WhenEditPostIsCalled_ThenModelStateIsValidReturnsToIndex()
+        {
+            //Arrange
+            EditVM editVM = new(_parkingSlot[0])
+            {
+                Number = 123
+            };
+            var slot = editVM.MapToModel(_parkingSlot[0]);
+            _parkingSlotServiceMoq
+                    .Setup(x => x.GetById(_parkingSlot[0].Id))
+                    .Returns(_parkingSlot[0]);
+
+            _parkingSlotServiceMoq.Setup(x => x.Update(slot));
+
+            _parkingSlotServiceMoq
+                    .Setup(x => x.IsUniqueNumber(editVM.ParkingZoneId, editVM.Number))
+                    .Returns(false);
+
+            //Act
+            var result = _parkingSlotController.Edit(editVM, _parkingSlot[0].Id);
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.NotEqual(JsonSerializer.Serialize(result), JsonSerializer.Serialize(editVM));
+            Assert.IsType<RedirectToActionResult>(result);
+            Assert.True(_parkingSlotController.ModelState.IsValid);
+            _parkingSlotServiceMoq.Verify(x => x.Update(_parkingSlot[0]), Times.Once);
+            _parkingSlotServiceMoq.Verify(x => x.GetById(_parkingSlot[0].Id), Times.Once);
+            _parkingSlotServiceMoq
+                    .Verify(x => x.IsUniqueNumber(editVM.ParkingZoneId, editVM.Number), Times.Once);
+        }
+        #endregion
 }
