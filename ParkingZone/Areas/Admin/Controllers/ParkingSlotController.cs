@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Parking_Zone.Domain.Entities;
 using Parking_Zone.MVC.Models.ParkingSlotVMs;
 using Parking_Zone.Service.Interfaces;
 using System.Security.Policy;
@@ -94,5 +95,20 @@ public class ParkingSlotController : Controller
             return RedirectToAction("Index", new { zoneId = slot.ParkingZoneId });
         }
         return View(editVM);
+    }
+
+    [HttpGet]
+    public IActionResult Details(long id)
+    {
+        if (id == 0)
+            return NotFound();
+
+        var existSlot = _parkingSlotService.GetById(id);
+        if (existSlot is null)
+        {
+            return NotFound();
+        }
+        DetailsVM detailsVM = new(existSlot);
+        return View(detailsVM);
     }
 }

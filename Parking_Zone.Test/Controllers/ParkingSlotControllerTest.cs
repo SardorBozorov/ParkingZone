@@ -81,7 +81,7 @@ public class ParkingSlotControllerTest
     }
     #endregion
 
-    #region
+    #region Create
     [Fact]
     public void GivenParkingZoneId_WhenCreateGetIsCalled_ThenReturnViewResult()
     {
@@ -242,5 +242,26 @@ public class ParkingSlotControllerTest
             _parkingSlotServiceMoq
                     .Verify(x => x.IsUniqueNumber(editVM.ParkingZoneId, editVM.Number), Times.Once);
         }
-        #endregion
+    #endregion
+
+    #region Details
+    [Fact]
+    public void GivenParkingSlotId_WhenDetailsIsCalled_ThenReturnsViewResult()
+    {
+        //Arrange
+        DetailsVM expectedVM = new(_parkingSlot[0]);
+        _parkingSlotServiceMoq
+            .Setup(x => x.GetById(_parkingSlot[0].Id))
+            .Returns(_parkingSlot[0]);
+
+        //Act
+        var result = _parkingSlotController.Details(_parkingSlot[0].Id);
+
+        //Assert
+        var model = Assert.IsType<ViewResult>(result).Model;
+        Assert.NotNull(result);
+        Assert.Equal(JsonSerializer.Serialize(model), JsonSerializer.Serialize(expectedVM));
+        _parkingSlotServiceMoq.Verify(x => x.GetById(_parkingSlot[0].Id), Times.Once);
+    }
+    #endregion
 }
