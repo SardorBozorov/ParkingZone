@@ -81,7 +81,7 @@ public class ParkingSlotControllerTest
     }
     #endregion
 
-    #region Creates
+    #region Create
     [Fact]
     public void GivenParkingZoneId_WhenCreateGetIsCalled_ThenReturnViewResult()
     {
